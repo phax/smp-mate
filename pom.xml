@@ -17,7 +17,7 @@
     limitations under the License.
 
 -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -27,7 +27,7 @@
   </parent>
   <groupId>com.helger.smp-mate</groupId>
   <artifactId>smp-mate</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>SMP mate</name>
   <description>SMP MAintenance TEchnology</description>
   <url>https://github.com/phax/ph-sbdh</url>
@@ -45,7 +45,7 @@
     <connection>scm:git:git@github.com:phax/smp-mate.git</connection>
     <developerConnection>scm:git:git@github.com:phax/smp-mate.git</developerConnection>
     <url>http://github.com/phax/smp-mate</url>
-    <tag>HEAD</tag>
+    <tag>smp-mate-1.0.0</tag>
   </scm>
 
   <organization>
