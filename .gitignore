@@ -1,5 +1,6 @@
+.settings/
 target/
 
 .classpath
 .project
-.settings/
+zz
