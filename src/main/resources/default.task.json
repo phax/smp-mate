@@ -1,0 +1,59 @@
+// Beispiel für ein Task-Json-File
+// ----------------------------------------------------------------------------------------------------------
+// * Hinweis:
+// JSON unterstützt (eigentlich) keine Kommentare. Insofern sollten aus einem Task-File alle Kommentare
+// entfernt werden. Zwingend ist dies jedoch in der aktuellen Implementation nicht.
+// ----------------------------------------------------------------------------------------------------------
+{
+  "paths": {
+    "csvInput": "path/to/input.csv",
+    "csvFailOutput": "path/to/output.csv",
+    // * Hinweis:
+    // Der gesamte Pfad zur Ausgabedatei wird erstellt, falls er nicht existiert
+    "serviceGroupTemplate": "path/to/ServiceGroup.xml",
+    "serviceMetadata": [
+      {
+        "template": "path/to/ServiceMetadata01.xml",
+        "documentIdentifier": "urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::D16B",
+        "processIdentifier": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
+      },
+      {
+        "template": "path/to/ServiceMetadata02.xml",
+        "documentIdentifier": "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
+        "processIdentifier": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
+      },
+      {
+        "template": "path/to/ServiceMetadata03.xml",
+        "documentIdentifier": "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
+        "processIdentifier": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
+      }
+    ]
+    // * Hinweis (1):
+    // Pfade können absolut oder relativ angegeben werden.
+    // Relative Pfade werden ausgehend von dem Verzeichnis aufgelöst, in dem sich das des Task-File befindet.
+  },
+
+  // SMP-Konfiguration
+  "smp": {
+    // Base-URL der SMP-REST-Schnittstelle
+    "url": "http://smp.domain.tld/",
+    // Authentifizierung, muss entfernt werden, wenn keine Authentifizierung stattfinden soll bzw. muss.
+    "authority": {
+      "name": "auth.name",
+      "password": "auth.passwd"
+    }
+  },
+
+  // Proxy-Konfiguration, muss aktiviert werden, wenn ein Proxy verwendet werden soll
+  // "proxy": {
+  //   // Hostname oder IP-Adresse
+  //   "host": "10.21.0.8",
+  //   // Port-Adresse
+  //   "port": "8080"
+  // },
+
+  // Optionen, mögliche Werte sind {"DRY_RUN"}
+  "options": [
+    "DRY_RUN"
+  ]
+}

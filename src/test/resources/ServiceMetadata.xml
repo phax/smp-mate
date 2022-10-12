@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Copyright (C) 2022 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<smp:ServiceMetadata xmlns:smp="http://busdox.org/serviceMetadata/publishing/1.0/"
+                     xmlns="http://busdox.org/transport/identifiers/1.0/"
+                     xmlns:ns3="http://www.w3.org/2005/08/addressing">
+    <smp:ServiceInformation>
+        <ParticipantIdentifier scheme="iso6523-actorid-upis">${ParticipantId}</ParticipantIdentifier>
+        <DocumentIdentifier scheme="busdox-docid-qns">${DocumentIdentifier}</DocumentIdentifier>
+        <smp:ProcessList>
+            <smp:Process>
+                <ProcessIdentifier scheme="cenbii-procid-ubl">${ProcessIdentifier}</ProcessIdentifier>
+                <smp:ServiceEndpointList>
+                    <smp:Endpoint transportProfile="peppol-transport-as4-v2_0">
+                        <ns3:EndpointReference>
+                            <ns3:Address>https://example.peppol.ap/as4</ns3:Address>
+                        </ns3:EndpointReference>
+                        <smp:RequireBusinessLevelSignature>false</smp:RequireBusinessLevelSignature>
+                        <smp:ServiceActivationDate>2018-11-15T00:00:00.000Z</smp:ServiceActivationDate>
+                        <smp:ServiceExpirationDate>2028-11-15T00:00:00.000Z</smp:ServiceExpirationDate>
+                        <smp:Certificate>MIIEbDCCA1SgAwIBAgIQYnTBxeHF2WtHLW3jj1BNZzANBgkqhkiG9w0BAQsFADB9
+                            MQswCQYDVQQGEwJESzEnMCUGA1UEChMeTkFUSU9OQUwgSVQgQU5EIFRFTEVDT00g
+                            QUdFTkNZMR8wHQYDVQQLExZGT1IgVEVTVCBQVVJQT1NFUyBPTkxZMSQwIgYDVQQD
+                            ExtQRVBQT0wgQUNDRVNTIFBPSU5UIFRFU1QgQ0EwHhcNMTYxMDI3MDAwMDAwWhcN
+                            MTgxMDI3MjM1OTU5WjA+MQswCQYDVQQGEwJERTEWMBQGA1UECgwNR292ZXJuaWt1
+                            cyBLRzEXMBUGA1UEAwwOQVBQXzEwMDAwMDAyNTcwggEiMA0GCSqGSIb3DQEBAQUA
+                            A4IBDwAwggEKAoIBAQCgKv2wwc+6wzqR8pCwDAf15/Q2/TCw5oD849HZoYxhegw1
+                            a6wRcS1AH7O6Te/6FGODJ2k17XtCxeUpUBFWrUMcZ4Z8rfEWnqxVNZdCtIOfCMtJ
+                            Q4VL6V2xdIaDOBkhlfTCoTr3e2MHuaLAj9zbR8wZ31fklIFz+5qtGaJ/k2I05YSV
+                            SKFSa0N+ittPEPcFHzUtaCrqDImlHCq2SY264WlVOWTxuvCBmJbowTmheyKfcMwf
+                            K9nMvvx9o9ja6lFGeyuHRe5lkQ/b194aNwOx6Gr7WskgBlfrU+vhHVbCSqsHXiVm
+                            d2hQlZ7yilyn1oLnO+9o0NgpjRkdzIsrO6zUDMJnAgMBAAGjggElMIIBITAJBgNV
+                            HRMEAjAAMAsGA1UdDwQEAwIDuDB2BgNVHR8EbzBtMGugaaBnhmVodHRwOi8vcGls
+                            b3RvbnNpdGVjcmwudmVyaXNpZ24uY29tL0RpZ2l0YWxpc2VyaW5nc3N0eXJlbHNl
+                            blBpbG90T3BlblBFUFBPTEFDQ0VTU1BPSU5UQ0EvTGF0ZXN0Q1JMLmNybDAfBgNV
+                            HSMEGDAWgBT3losZTK7iViEAvob9ekesncoFdTAdBgNVHQ4EFgQUagZEzFekEtGS
+                            MdaMyz6mnvV+eQ8wOgYIKwYBBQUHAQEELjAsMCoGCCsGAQUFBzABhh5odHRwOi8v
+                            cGlsb3Qtb2NzcC52ZXJpc2lnbi5jb20wEwYDVR0lBAwwCgYIKwYBBQUHAwIwDQYJ
+                            KoZIhvcNAQELBQADggEBACmrhz1aEFhmIWnsZhrDnlLtaFXrTX9M+QokCKI78YQM
+                            zdt6Vb0meGL5DV/l8yok+L3MpVQI4Apd+wWWnhX22ujej0Zd8mN0Qut3tNpU8nSr
+                            QdqAwRvYwSKfg6LJgBi6fMCLr+DbBKNFHBzrJXDiqHPLJz+Pp8NC/SwEbsvjOoke
+                            AZb6oDcNR+r3454sPdJFYvgRkf6Vn3zW5Q+OthQXZrsTprGY6Rmni6Zirk9urkiL
+                            yxgLe51ygkso+MYDZulZ44FM5Lb+F4uNIMXARgGbwqTbfodU5sCmTQxfEVhTA3rr
+                            T++C8kt0UDQt3zps0Ahywt0lOtIqeogyeEz1BVz3304=
+                        </smp:Certificate>
+                        <smp:ServiceDescription>Example AS4 Reception Service</smp:ServiceDescription>
+                        <smp:TechnicalContactUrl>support@example.org</smp:TechnicalContactUrl>
+                    </smp:Endpoint>
+                </smp:ServiceEndpointList>
+            </smp:Process>
+        </smp:ProcessList>
+    </smp:ServiceInformation>
+</smp:ServiceMetadata>
