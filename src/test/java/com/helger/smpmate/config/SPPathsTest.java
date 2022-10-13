@@ -32,12 +32,12 @@ import com.helger.smpmate.args.SPArgServiceMetadata;
 
 public class SPPathsTest
 {
-  private static SPArgPaths origin (final List <SPArgServiceMetadata> metadata)
+  private static SPArgPaths _origin (final List <SPArgServiceMetadata> metadata)
   {
     return new SPArgPaths ("csvInput.csv", "csvFailOutput.csv", "groupTemplate.xml", metadata);
   }
 
-  private static Path absolutePath (final String name)
+  private static Path _absolutePath (final String name)
   {
     return Paths.get (name).toAbsolutePath ();
   }
@@ -45,15 +45,15 @@ public class SPPathsTest
   @Test (expected = ValidationException.class)
   public final void validateEmptyTemplates () throws ValidationException
   {
-    new SPPaths (null, origin (Collections.emptyList ()));
+    new SPPaths (null, _origin (Collections.emptyList ()));
   }
 
   @Test
   public final void getServiceMetadataTemplates () throws ValidationException
   {
-    final String metadataTemplate03Path = absolutePath ("metadataTemplate03.xml").toString ();
-    final SPPaths result = new SPPaths (absolutePath ("input"),
-                                        origin (Arrays.asList (new SPArgServiceMetadata ("metadataTemplate01.xml",
+    final String metadataTemplate03Path = _absolutePath ("metadataTemplate03.xml").toString ();
+    final SPPaths result = new SPPaths (_absolutePath ("input"),
+                                        _origin (Arrays.asList (new SPArgServiceMetadata ("metadataTemplate01.xml",
                                                                                          "",
                                                                                          ""),
                                                                new SPArgServiceMetadata ("metadataTemplate02.xml",
