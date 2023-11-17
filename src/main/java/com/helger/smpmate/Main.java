@@ -75,7 +75,7 @@ public final class Main
         else
         {
           // Copy template to disk
-          MyLog.info ( () -> "Task file '" + aTaskPath + "' does not exis -> a new task file template will be created");
+          MyLog.info ( () -> "Task file '" + aTaskPath + "' does not exist -> a new task file template will be created");
           try (final InputStream aIS = Main.class.getResourceAsStream ("/default.task.json"))
           {
             Files.createDirectories (aTaskPath.getParent ());

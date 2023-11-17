@@ -47,15 +47,15 @@ public final class MainTest
   private static final Path serviceGroupPath = TestFiles.TEST_PATH.resolve ("ServiceGroup.xml");
   private static final Path serviceMetaPath = TestFiles.TEST_PATH.resolve ("ServiceMetadata.xml");
 
-  private static FileTime _prepareInput () throws IOException
-  {
-    RESOURCES.copy (SAMPLE_CSV_NAME, csvInputPath)
-             .copy (TestFiles.SAMPLE_TASK_RESOURCE, TestFiles.SAMPLE_TASK_PATH)
-             .copy (TestFiles.SAMPLE_TASK_DRY_RUN_RESOURCE, TestFiles.SAMPLE_TASK_DRY_RUN_PATH)
-             .copy (TestFiles.SAMPLE_TASK_FAIL_SMP_RESOURCE, TestFiles.SAMPLE_TASK_FAIL_SMP_PATH)
-             .copy (SERVICE_GROUP_TMPLT_RSRC, serviceGroupPath)
-             .copy (SERVICE_META_TMPLT_RSRC, serviceMetaPath);
-    return Files.getLastModifiedTime (TestFiles.SAMPLE_TASK_PATH);
+  private static FileTime _prepareInput() throws IOException {
+    RESOURCES.copy(SAMPLE_CSV_NAME, csvInputPath)
+            .copy(TestFiles.SAMPLE_TASK_RESOURCE, TestFiles.SAMPLE_TASK_PATH)
+            .copy(TestFiles.SAMPLE_TASK_BC_RESOURCE, TestFiles.SAMPLE_TASK_BC_PATH)
+            .copy(TestFiles.SAMPLE_TASK_DRY_RUN_RESOURCE, TestFiles.SAMPLE_TASK_DRY_RUN_PATH)
+            .copy(TestFiles.SAMPLE_TASK_FAIL_SMP_RESOURCE, TestFiles.SAMPLE_TASK_FAIL_SMP_PATH)
+            .copy(SERVICE_GROUP_TMPLT_RSRC, serviceGroupPath)
+            .copy(SERVICE_META_TMPLT_RSRC, serviceMetaPath);
+    return Files.getLastModifiedTime(TestFiles.SAMPLE_TASK_PATH);
   }
 
   private static void _cleanupSMP (final SPTask task) throws IOException
@@ -141,6 +141,21 @@ public final class MainTest
     assertTrue ("expected: " + time0 + " <= " + timeX, time0.compareTo (timeX) <= 0);
 
     _cleanupSMP (SPReader.readTask (TestFiles.SAMPLE_TASK_PATH));
+  }
+
+  @Test
+  //@Ignore ("Really calls SMP")
+  public void mainExistingBusinessCardTask () throws Exception
+  {
+    final FileTime time0 = _prepareInput ();
+
+    // Run valid
+    Main.main (TestFiles.SAMPLE_TASK_BC_PATH.toString ());
+
+    final FileTime timeX = Files.getLastModifiedTime (TestFiles.SAMPLE_TASK_BC_PATH);
+    assertTrue ("expected: " + time0 + " <= " + timeX, time0.compareTo (timeX) <= 0);
+
+    _cleanupSMP (SPReader.readTask (TestFiles.SAMPLE_TASK_BC_PATH));
   }
 
   @Test
