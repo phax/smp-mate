@@ -61,7 +61,8 @@ public final class Main
           // Read source "CSV"
           try (final BufferedReader aReader = Files.newBufferedReader (aTask.getPaths ().getCsvInput (), StandardCharsets.UTF_8))
           {
-            for (String line; (line = aReader.readLine ()) != null;) {
+            String line;
+            while ((line = aReader.readLine ()) != null) {
               Tokenizer tokenizer = new Tokenizer(line.trim(), ";");
               String[] tokens = tokenizer.tokens();
               String participantId = tokens.length >= 1 ? tokens[0] : null;
