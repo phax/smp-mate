@@ -18,7 +18,6 @@ package com.helger.smpmate.business;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -128,7 +127,7 @@ public final class UserConfigurator
   private boolean _tryAddBcToSMP(final String sParticipantId, final Path bcPath)
   {
     try {
-      String content = fetchContent(bcPath);
+      byte[] content = Files.readAllBytes(bcPath);
       int result = m_aSmp.putBusinessCard(sParticipantId, content);
       if (result == HTTP_OK) {
         MyLog.info(() -> "SMP: Set business card content of " + sParticipantId );
@@ -145,17 +144,6 @@ public final class UserConfigurator
       m_aStats.incrementBusinessCardFailCount();
     }
     return false;
-  }
-
-  private String fetchContent(Path path) throws IOException {
-    StringWriter stringWriter = new StringWriter();
-    PrintWriter writer = new PrintWriter(stringWriter);
-    try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-      for (String line; (line = reader.readLine()) != null;) {
-        writer.println(line);
-      }
-    }
-    return stringWriter.toString();
   }
 
   /**

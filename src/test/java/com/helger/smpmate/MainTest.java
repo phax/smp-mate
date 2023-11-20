@@ -70,12 +70,16 @@ public final class MainTest
     if (!task.getOptions ().contains (ESPArgOption.DRY_RUN))
     {
       final SmpService service = new SmpService (task);
-      for (final String userId : Arrays.asList ("9930:de999111112",
-                                                "9930:de999111114",
-                                                "9930:de999111115",
-                                                "9930:de999111116",
-                                                "9930:de999111118",
-                                                "9930:de999111119"))
+      for (final String userId : Arrays.asList (
+              "9930:de999111111",
+              "9930:de999111112",
+              "9930:de999111114",
+              "9930:de999111115",
+              "9930:de999111116",
+              "9930:de999111117",
+              "9930:de999111118",
+              "9930:de999111119",
+              "9930:de999268497"))
       {
         service.deleteParticipant (userId);
       }
@@ -162,7 +166,7 @@ public final class MainTest
     final FileTime timeX = Files.getLastModifiedTime(TestFiles.SAMPLE_TASK_BC_PATH);
     assertTrue("expected: " + time0 + " <= " + timeX, time0.compareTo(timeX) <= 0);
 
-    //_cleanupSMP(SPReader.readTask(TestFiles.SAMPLE_TASK_BC_PATH));
+    _cleanupSMP(SPReader.readTask(TestFiles.SAMPLE_TASK_BC_PATH));
   }
 
   @Test
