@@ -38,17 +38,24 @@ import com.helger.smpmate.testing.MockResources;
 public final class MainTest
 {
   private static final String SAMPLE_CSV_NAME = "/sample.csv";
+  private static final String SAMPLE_BC_CSV_NAME = "/sample-bc.csv";
+  private static final String SAMPLE_BC_XML_NAME = "/sample-bc.xml";
   private static final String SERVICE_GROUP_TMPLT_RSRC = "/sample/input/ServiceGroup.xml";
   private static final String SERVICE_META_TMPLT_RSRC = "/sample/input/ServiceMetadata-PEPPOL-cii_invoice.xml";
   private static final MockResources RESOURCES = MockResources.using (MainTest.class);
 
   private static final Path csvInputPath = TestFiles.TEST_PATH.resolve ("input.csv");
+  private static final Path csvBcInputPath = TestFiles.TEST_PATH.resolve ("input-bc.csv");
+  private static final Path xmlBcInputPath = TestFiles.TEST_PATH.resolve ("sample-bc.xml");
   private static final Path csvOutputPath = TestFiles.TEST_PATH.resolve ("output.csv");
   private static final Path serviceGroupPath = TestFiles.TEST_PATH.resolve ("ServiceGroup.xml");
   private static final Path serviceMetaPath = TestFiles.TEST_PATH.resolve ("ServiceMetadata.xml");
 
   private static FileTime _prepareInput() throws IOException {
-    RESOURCES.copy(SAMPLE_CSV_NAME, csvInputPath)
+    RESOURCES
+            .copy(SAMPLE_CSV_NAME, csvInputPath)
+            .copy(SAMPLE_BC_CSV_NAME, csvBcInputPath)
+            .copy(SAMPLE_BC_XML_NAME, xmlBcInputPath)
             .copy(TestFiles.SAMPLE_TASK_RESOURCE, TestFiles.SAMPLE_TASK_PATH)
             .copy(TestFiles.SAMPLE_TASK_BC_RESOURCE, TestFiles.SAMPLE_TASK_BC_PATH)
             .copy(TestFiles.SAMPLE_TASK_DRY_RUN_RESOURCE, TestFiles.SAMPLE_TASK_DRY_RUN_PATH)
@@ -144,18 +151,18 @@ public final class MainTest
   }
 
   @Test
-  //@Ignore ("Really calls SMP")
-  public void mainExistingBusinessCardTask () throws Exception
+  @Ignore ("Really calls SMP")
+  public void mainExistingBusinessCardTask() throws Exception
   {
-    final FileTime time0 = _prepareInput ();
+    final FileTime time0 = _prepareInput();
 
     // Run valid
-    Main.main (TestFiles.SAMPLE_TASK_BC_PATH.toString ());
+    Main.main(TestFiles.SAMPLE_TASK_BC_PATH.toString());
 
-    final FileTime timeX = Files.getLastModifiedTime (TestFiles.SAMPLE_TASK_BC_PATH);
-    assertTrue ("expected: " + time0 + " <= " + timeX, time0.compareTo (timeX) <= 0);
+    final FileTime timeX = Files.getLastModifiedTime(TestFiles.SAMPLE_TASK_BC_PATH);
+    assertTrue("expected: " + time0 + " <= " + timeX, time0.compareTo(timeX) <= 0);
 
-    _cleanupSMP (SPReader.readTask (TestFiles.SAMPLE_TASK_BC_PATH));
+    //_cleanupSMP(SPReader.readTask(TestFiles.SAMPLE_TASK_BC_PATH));
   }
 
   @Test

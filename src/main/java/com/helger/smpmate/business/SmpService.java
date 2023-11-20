@@ -193,6 +193,21 @@ public class SmpService
     return aHttpCon.getResponseCode ();
   }
 
+  public int putBusinessCard(@Nonnull String sParticipantID, @Nonnull String content) throws IOException {
+    _configureProxy();
+
+    MyLog.info(() -> "[SMP] Trying to set business card to participant " + sParticipantID);
+
+    URL url = _url(m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
+    HttpURLConnection connection = _openConnection(url, "PUT");
+
+    try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
+      writer.write(content);
+    }
+
+    return connection.getResponseCode();
+  }
+
   /**
    * Adds all "documentId"/"processId" to a registered "user" ("participant") on
    * the associated SMP server using a "ServiceMetadata" structure.

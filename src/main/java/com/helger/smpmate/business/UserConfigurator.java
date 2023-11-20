@@ -16,9 +16,9 @@
  */
 package com.helger.smpmate.business;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -76,6 +76,19 @@ public final class UserConfigurator
       MyLog.info ( () -> "DRY_RUN: no provisioning of participant " + sParticipantId + " to SMP");
   }
 
+  public void update(final String sParticipantId, final Path bcPath)
+  {
+    m_aStats.incTotalParticipants();
+
+    if (m_bCallSMP) {
+      _tryAddToSMP(sParticipantId);
+      _tryAddBcToSMP(sParticipantId, bcPath);
+    }
+    else {
+      MyLog.info(() -> "DRY_RUN: no provisioning of participant " + sParticipantId + " to SMP");
+    }
+  }
+
   private static boolean _allOK (@Nonnull final List <Integer> aResults)
   {
     return aResults.stream ().allMatch (x -> x.equals (Integer.valueOf (HTTP_OK)));
@@ -110,6 +123,39 @@ public final class UserConfigurator
       m_aStats.addSmpFail (sParticipantID);
     }
     return false;
+  }
+
+  private boolean _tryAddBcToSMP(final String sParticipantId, final Path bcPath)
+  {
+    try {
+      String content = fetchContent(bcPath);
+      int result = m_aSmp.putBusinessCard(sParticipantId, content);
+      if (result == HTTP_OK) {
+        MyLog.info(() -> "SMP: Set business card content of " + sParticipantId );
+        m_aStats.incrementBusinessCardSuccessCount();
+        return true;
+      }
+      else {
+        MyLog.warning(() -> "SMP: Cannot set business card content of " + sParticipantId + ". Error " + result);
+        m_aStats.incrementBusinessCardFailCount();
+      }
+    }
+    catch (Exception e) {
+      MyLog.error( () -> "An error occurred while trying to submit business card of participant " + sParticipantId + " to the SMP.", e);
+      m_aStats.incrementBusinessCardFailCount();
+    }
+    return false;
+  }
+
+  private String fetchContent(Path path) throws IOException {
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
+    try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+      for (String line; (line = reader.readLine()) != null;) {
+        writer.println(line);
+      }
+    }
+    return stringWriter.toString();
   }
 
   /**

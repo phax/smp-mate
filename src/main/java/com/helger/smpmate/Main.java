@@ -28,9 +28,11 @@ import javax.annotation.Nonnull;
 
 import com.helger.smpmate.business.UserConfigurator;
 import com.helger.smpmate.config.SMPMateVersion;
+import com.helger.smpmate.config.SPPaths;
 import com.helger.smpmate.config.SPReader;
 import com.helger.smpmate.config.SPTask;
 import com.helger.smpmate.log.MyLog;
+import com.helger.smpmate.util.Tokenizer;
 
 /**
  * Provides the main entry point of the command line application.
@@ -59,10 +61,18 @@ public final class Main
           // Read source "CSV"
           try (final BufferedReader aReader = Files.newBufferedReader (aTask.getPaths ().getCsvInput (), StandardCharsets.UTF_8))
           {
-            String sUser;
-            while ((sUser = aReader.readLine ()) != null)
-            {
-              aConfigurator.update (sUser.trim ());
+            for (String line; (line = aReader.readLine ()) != null;) {
+              Tokenizer tokenizer = new Tokenizer(line.trim(), ";");
+              String[] tokens = tokenizer.tokens();
+              String participantId = tokens.length >= 1 ? tokens[0] : null;
+
+              if (tokens.length == 1) {
+                aConfigurator.update(participantId);
+              }
+              else if (tokens.length >= 2) {
+                Path path = SPPaths.toPath(aTaskPath.getParent(), tokens[1]);
+                aConfigurator.update(participantId, path);
+              }
             }
           }
 

@@ -1,0 +1,14 @@
+<BusinessCard xmlns="http://www.peppol.eu/schema/pd/businesscard/20180621/">
+    <ParticipantIdentifier scheme="iso6523-actorid-upis">9930:de999111117</ParticipantIdentifier>
+    <BusinessEntity registrationDate="2021-09-21">
+        <Name language="de">Behörde für Arbeit, Gesundheit, Soziales, Familie und Integration</Name>
+        <CountryCode>DE</CountryCode>
+        <GeographicalInformation>Hamburger Straße, 47, 22222, Hamburg</GeographicalInformation>
+        <Identifier scheme="vat">02000000-KSOZI00001-59</Identifier>
+        <WebsiteURI>https://dataport.de</WebsiteURI>
+        <Contact>
+            <Email>peppol@22222.hamburg.de</Email>
+        </Contact>
+        <AdditionalInformation>Additional information about the business entity.</AdditionalInformation>
+    </BusinessEntity>
+</BusinessCard>

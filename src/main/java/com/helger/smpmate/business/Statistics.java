@@ -35,6 +35,9 @@ public final class Statistics
   private int m_nRegisterUserFailed;
   private int m_aAddDocumentIdFailed;
 
+  private int businessCardSuccessCount;
+  private int businessCardFailCount;
+
   /**
    * Retrieves the "smpFails" list.
    */
@@ -84,20 +87,32 @@ public final class Statistics
     m_aSmpFails.add (sParticipantID);
   }
 
+  public void incrementBusinessCardSuccessCount() {
+    businessCardSuccessCount++;
+  }
+
+  public void incrementBusinessCardFailCount() {
+    businessCardFailCount++;
+  }
+
   @Nonnull
   public String getAsString ()
   {
     return "\n" +
-           "\n  total participants .........: " +
+            "\n  total participants .........: " +
            m_nTotal +
-           "\n  registered on SMP ..........: " +
+            "\n  registered on SMP ..........: " +
            m_nAddedToSMP +
-           "\n  SMP: registerUser failed ...: " +
+            "\n  registered business cards ..: " +
+            businessCardSuccessCount +
+            "\n  SMP: registerUser failed ...: " +
            m_nRegisterUserFailed +
-           "\n  SMP: addDocumentId failed ..: " +
+            "\n  SMP: addDocumentId failed ..: " +
            m_aAddDocumentIdFailed +
-           "\n  SMP: total failed ..........: " +
-           (m_nRegisterUserFailed + m_aAddDocumentIdFailed) +
+            "\n  SMP: business card failed ..: " +
+            businessCardFailCount +
+            "\n  SMP: total failed ..........: " +
+           (m_nRegisterUserFailed + m_aAddDocumentIdFailed + businessCardFailCount) +
            "\n";
   }
 }
