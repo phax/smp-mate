@@ -42,7 +42,7 @@ public final class SPPaths
   private final List <SPServiceMetadata> m_aServiceMetadata;
 
   @Nonnull
-  static Path toPath (@Nullable final Path aRel, @Nonnull final String sPath)
+  public static Path toPath (@Nullable final Path aRel, @Nonnull final String sPath)
   {
     final Path aResult = Paths.get (sPath);
     return (aResult.isAbsolute () || aRel == null ? aResult : aRel.resolve (aResult)).toAbsolutePath ().normalize ();

@@ -1,6 +1,6 @@
 {
   "paths": {
-    "csvInput": "input.csv",
+    "csvInput": "input-bc.csv",
     "csvFailOutput": "output.csv",
     "serviceGroupTemplate": "ServiceGroup.xml",
     "serviceMetadata": [
