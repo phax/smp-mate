@@ -199,8 +199,8 @@ public class SmpService
     URL url = _url(m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
     HttpURLConnection connection = _openConnection(url, "PUT");
 
-    try (DataOutputStream writer = new DataOutputStream(connection.getOutputStream())) {
-      writer.write(content, 0, content.length);
+    try (OutputStream stream = connection.getOutputStream()) {
+      stream.write(content, 0, content.length);
     }
 
     return connection.getResponseCode();
