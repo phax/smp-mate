@@ -48,7 +48,11 @@ public final class Main
   {
     try
     {
-      MyLog.info ( () -> "SMP Mate v" + SMPMateVersion.BUILD_VERSION + " (built " + SMPMateVersion.BUILD_TIMESTAMP + ")");
+      MyLog.info ( () -> "SMP Mate v" +
+                         SMPMateVersion.BUILD_VERSION +
+                         " (built " +
+                         SMPMateVersion.BUILD_TIMESTAMP +
+                         ")");
 
       if (1 == aArgs.length)
       {
@@ -59,21 +63,26 @@ public final class Main
           final UserConfigurator aConfigurator = new UserConfigurator (aTask);
 
           // Read source "CSV"
-          try (final BufferedReader aReader = Files.newBufferedReader (aTask.getPaths ().getCsvInput (), StandardCharsets.UTF_8))
+          try (final BufferedReader aReader = Files.newBufferedReader (aTask.getPaths ().getCsvInput (),
+                                                                       StandardCharsets.UTF_8))
           {
             String line;
-            while ((line = aReader.readLine ()) != null) {
-              Tokenizer tokenizer = new Tokenizer(line.trim(), ";");
-              String[] tokens = tokenizer.tokens();
+            while ((line = aReader.readLine ()) != null)
+            {
+              Tokenizer tokenizer = new Tokenizer (line.trim (), ";");
+              String [] tokens = tokenizer.tokens ();
               String participantId = tokens.length >= 1 ? tokens[0] : null;
 
-              if (tokens.length == 1) {
-                aConfigurator.update(participantId);
+              if (tokens.length == 1)
+              {
+                aConfigurator.update (participantId);
               }
-              else if (tokens.length >= 2) {
-                Path path = SPPaths.toPath(aTaskPath.getParent(), tokens[1]);
-                aConfigurator.update(participantId, path);
-              }
+              else
+                if (tokens.length >= 2)
+                {
+                  Path path = SPPaths.toPath (aTaskPath.getParent (), tokens[1]);
+                  aConfigurator.update (participantId, path);
+                }
             }
           }
 
@@ -86,7 +95,9 @@ public final class Main
         else
         {
           // Copy template to disk
-          MyLog.info ( () -> "Task file '" + aTaskPath + "' does not exist -> a new task file template will be created");
+          MyLog.info ( () -> "Task file '" +
+                             aTaskPath +
+                             "' does not exist -> a new task file template will be created");
           try (final InputStream aIS = Main.class.getResourceAsStream ("/default.task.json"))
           {
             Files.createDirectories (aTaskPath.getParent ());

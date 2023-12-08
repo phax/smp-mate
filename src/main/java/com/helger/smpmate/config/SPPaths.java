@@ -49,7 +49,9 @@ public final class SPPaths
   }
 
   @Nonnull
-  private static Path _toPath (@Nullable final Path aRel, @Nullable final String sPrimePath, @Nonnull final String sAltPath)
+  private static Path _toPath (@Nullable final Path aRel,
+                               @Nullable final String sPrimePath,
+                               @Nonnull final String sAltPath)
   {
     return toPath (aRel, sPrimePath == null ? sAltPath : sPrimePath);
   }

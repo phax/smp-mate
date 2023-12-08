@@ -50,8 +50,8 @@ public final class SPTask
     m_aPaths = new SPPaths (aRel, aOrigin.getPaths ());
     m_aSmp = aOrigin.getSmp ();
     m_aProxy = aOrigin.getProxy ();
-    m_aOptions = aOrigin.getOptions () == null ? EnumSet.noneOf (ESPArgOption.class)
-                                               : EnumSet.copyOf (aOrigin.getOptions ());
+    m_aOptions = aOrigin.getOptions () == null ? EnumSet.noneOf (ESPArgOption.class) : EnumSet.copyOf (aOrigin
+                                                                                                              .getOptions ());
   }
 
   /**

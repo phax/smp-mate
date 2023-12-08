@@ -46,7 +46,9 @@ public final class MyLog
     return new String (c);
   }
 
-  private static void _log (@Nonnull final Level eLevel, @Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  private static void _log (@Nonnull final Level eLevel,
+                            @Nonnull final Supplier <String> aMsgSupplier,
+                            @Nullable final Exception ex)
   {
     @SuppressWarnings ("resource")
     final PrintStream o = eLevel.intValue () >= Level.SEVERE.intValue () ? System.err : System.out;

@@ -92,8 +92,10 @@ public class SmpService
     final List <Metadata> ret = new ArrayList <> ();
     for (final SPServiceMetadata aMD : aMetadatas)
     {
-      ret.add (new Metadata (_readFileUTF8 (aMD.getTemplate ()).replace (PARAM_DOCUMENT_IDENTIFIER, aMD.getDocumentIdentifier ())
-                                                               .replace (PARAM_PROCESS_IDENTIFIER, aMD.getProcessIdentifier ()),
+      ret.add (new Metadata (_readFileUTF8 (aMD.getTemplate ()).replace (PARAM_DOCUMENT_IDENTIFIER,
+                                                                         aMD.getDocumentIdentifier ())
+                                                               .replace (PARAM_PROCESS_IDENTIFIER,
+                                                                         aMD.getProcessIdentifier ()),
                              aMD.getDocumentIdentifier ()));
     }
     return Collections.unmodifiableList (ret);
@@ -191,19 +193,21 @@ public class SmpService
     return aHttpCon.getResponseCode ();
   }
 
-  public int putBusinessCard(@Nonnull String sParticipantID, @Nonnull byte[] content) throws IOException {
-    _configureProxy();
+  public int putBusinessCard (@Nonnull String sParticipantID, @Nonnull byte [] content) throws IOException
+  {
+    _configureProxy ();
 
-    MyLog.info(() -> "[SMP] Trying to set business card to participant " + sParticipantID);
+    MyLog.info ( () -> "[SMP] Trying to set business card to participant " + sParticipantID);
 
-    URL url = _url(m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
-    HttpURLConnection connection = _openConnection(url, "PUT");
+    URL url = _url (m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
+    HttpURLConnection connection = _openConnection (url, "PUT");
 
-    try (OutputStream stream = connection.getOutputStream()) {
-      stream.write(content, 0, content.length);
+    try (OutputStream stream = connection.getOutputStream ())
+    {
+      stream.write (content, 0, content.length);
     }
 
-    return connection.getResponseCode();
+    return connection.getResponseCode ();
   }
 
   /**
@@ -220,7 +224,8 @@ public class SmpService
     return ret;
   }
 
-  private int _addDocumentID (@Nonnull final String sParticipantID, @Nonnull final Metadata aMetadata) throws IOException
+  private int _addDocumentID (@Nonnull final String sParticipantID, @Nonnull final Metadata aMetadata)
+                                                                                                       throws IOException
   {
     _configureProxy ();
     final URL aUrl = _url (m_sServerUrl,
@@ -228,10 +233,14 @@ public class SmpService
                            SERVICES,
                            BUSDOX_DOCID_QNS + aMetadata.m_sDocumentIdentifier);
     final String sBody = aMetadata.m_sXmlTemplateContent.replace (PARAM_PARTICIPANT_IDENTIFIER, sParticipantID);
-    MyLog.info ( () -> "[SMP] Trying to add document type " + aMetadata.m_sDocumentIdentifier + " to  participant " + sParticipantID);
+    MyLog.info ( () -> "[SMP] Trying to add document type " +
+                       aMetadata.m_sDocumentIdentifier +
+                       " to  participant " +
+                       sParticipantID);
 
     final HttpURLConnection aHttpCon = _openConnection (aUrl, "PUT");
-    try (final OutputStreamWriter aWriter = new OutputStreamWriter (aHttpCon.getOutputStream (), StandardCharsets.UTF_8))
+    try (final OutputStreamWriter aWriter = new OutputStreamWriter (aHttpCon.getOutputStream (),
+                                                                    StandardCharsets.UTF_8))
     {
       aWriter.write (sBody);
     }
