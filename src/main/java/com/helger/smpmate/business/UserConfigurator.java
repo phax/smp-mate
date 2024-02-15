@@ -106,7 +106,7 @@ public final class UserConfigurator
       final int nRegisterUserResult = m_aSmp.registerParticipant (sParticipantID);
       if (HTTP_OK == nRegisterUserResult)
       {
-        final List <Integer> aAddDocumentIDsResult = m_aSmp.addDocumentIDs (sParticipantID);
+        final List <Integer> aAddDocumentIDsResult = m_aSmp.addDocumentTypeIDs (sParticipantID);
         if (_allOK (aAddDocumentIDsResult))
         {
           MyLog.info ( () -> "SMP: added participant " + sParticipantID);

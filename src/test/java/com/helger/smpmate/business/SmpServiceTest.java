@@ -77,7 +77,7 @@ public final class SmpServiceTest
     final String userId = "9930:de888111129";
     final SmpService service = new SmpService (TASK);
     assertEquals (HTTP_OK, service.registerParticipant (userId));
-    assertEquals (Collections.singletonList (Integer.valueOf (HTTP_OK)), service.addDocumentIDs (userId));
+    assertEquals (Collections.singletonList (Integer.valueOf (HTTP_OK)), service.addDocumentTypeIDs (userId));
     assertEquals (HTTP_OK, service.deleteParticipant (userId));
   }
 }

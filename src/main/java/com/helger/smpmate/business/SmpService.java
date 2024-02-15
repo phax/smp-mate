@@ -218,27 +218,28 @@ public class SmpService
    * the associated SMP server using a "ServiceMetadata" structure.
    */
   @Nonnull
-  public final List <Integer> addDocumentIDs (@Nonnull final String sParticipantId) throws IOException
+  public final List <Integer> addDocumentTypeIDs (@Nonnull final String sParticipantId) throws IOException
   {
     // List of HTTP status codes
     final List <Integer> ret = new LinkedList <> ();
     for (final Metadata aMetadata : m_aServiceMetadata)
-      ret.add (Integer.valueOf (_addDocumentID (sParticipantId, aMetadata)));
+      ret.add (Integer.valueOf (_addDocumentTypeID (sParticipantId, aMetadata)));
     return ret;
   }
 
-  private int _addDocumentID (@Nonnull final String sParticipantID, @Nonnull final Metadata aMetadata)
-                                                                                                       throws IOException
+  private int _addDocumentTypeID (@Nonnull final String sParticipantID, @Nonnull final Metadata aMetadata)
+                                                                                                           throws IOException
   {
     _configureProxy ();
     final URL aUrl = _url (m_sServerUrl,
                            ISO_6523_ACTORID_UPIS + sParticipantID,
                            SERVICES,
                            BUSDOX_DOCID_QNS + aMetadata.m_sDocumentIdentifier);
+
     final String sBody = aMetadata.m_sXmlTemplateContent.replace (PARAM_PARTICIPANT_IDENTIFIER, sParticipantID);
     MyLog.info ( () -> "[SMP] Trying to add document type " +
                        aMetadata.m_sDocumentIdentifier +
-                       " to  participant " +
+                       " to participant " +
                        sParticipantID);
 
     final HttpURLConnection aHttpCon = _openConnection (aUrl, "PUT");
