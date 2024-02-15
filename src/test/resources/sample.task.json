@@ -12,10 +12,10 @@
     ]
   },
   "smp": {
-    "url": "http://localhost:8888",
+    "url": "http://sample-smp.example.org/",
     "authority": {
-      "name": "admin@helger.com",
-      "password": "password"
+      "name": "smp-user",
+      "password": "smp-pw"
     }
   },
   "options": []
