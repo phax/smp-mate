@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Contains the paths of a task configuration.
@@ -38,9 +39,9 @@ public final class SPArgPaths
   /**
    * Initializes a new instance by its properties.
    */
-  public SPArgPaths (final String sCsvInput,
-                     final String sCsvFailOutput,
-                     final String sServiceGroupTemplate,
+  public SPArgPaths (@Nonnull final String sCsvInput,
+                     @Nullable final String sCsvFailOutput,
+                     @Nonnull final String sServiceGroupTemplate,
                      @Nonnull final List <SPArgServiceMetadata> aServiceMetadata)
   {
     m_sCsvInput = sCsvInput;

@@ -51,18 +51,18 @@ public final class MainTest
   private static final Path serviceGroupPath = TestFiles.TEST_PATH.resolve ("ServiceGroup.xml");
   private static final Path serviceMetaPath = TestFiles.TEST_PATH.resolve ("ServiceMetadata.xml");
 
-  private static FileTime _prepareInput() throws IOException {
-    RESOURCES
-            .copy(SAMPLE_CSV_NAME, csvInputPath)
-            .copy(SAMPLE_BC_CSV_NAME, csvBcInputPath)
-            .copy(SAMPLE_BC_XML_NAME, xmlBcInputPath)
-            .copy(TestFiles.SAMPLE_TASK_RESOURCE, TestFiles.SAMPLE_TASK_PATH)
-            .copy(TestFiles.SAMPLE_TASK_BC_RESOURCE, TestFiles.SAMPLE_TASK_BC_PATH)
-            .copy(TestFiles.SAMPLE_TASK_DRY_RUN_RESOURCE, TestFiles.SAMPLE_TASK_DRY_RUN_PATH)
-            .copy(TestFiles.SAMPLE_TASK_FAIL_SMP_RESOURCE, TestFiles.SAMPLE_TASK_FAIL_SMP_PATH)
-            .copy(SERVICE_GROUP_TMPLT_RSRC, serviceGroupPath)
-            .copy(SERVICE_META_TMPLT_RSRC, serviceMetaPath);
-    return Files.getLastModifiedTime(TestFiles.SAMPLE_TASK_PATH);
+  private static FileTime _prepareInput () throws IOException
+  {
+    RESOURCES.copy (SAMPLE_CSV_NAME, csvInputPath)
+             .copy (SAMPLE_BC_CSV_NAME, csvBcInputPath)
+             .copy (SAMPLE_BC_XML_NAME, xmlBcInputPath)
+             .copy (TestFiles.SAMPLE_TASK_RESOURCE, TestFiles.SAMPLE_TASK_PATH)
+             .copy (TestFiles.SAMPLE_TASK_BC_RESOURCE, TestFiles.SAMPLE_TASK_BC_PATH)
+             .copy (TestFiles.SAMPLE_TASK_DRY_RUN_RESOURCE, TestFiles.SAMPLE_TASK_DRY_RUN_PATH)
+             .copy (TestFiles.SAMPLE_TASK_FAIL_SMP_RESOURCE, TestFiles.SAMPLE_TASK_FAIL_SMP_PATH)
+             .copy (SERVICE_GROUP_TMPLT_RSRC, serviceGroupPath)
+             .copy (SERVICE_META_TMPLT_RSRC, serviceMetaPath);
+    return Files.getLastModifiedTime (TestFiles.SAMPLE_TASK_PATH);
   }
 
   private static void _cleanupSMP (final SPTask task) throws IOException
@@ -70,16 +70,15 @@ public final class MainTest
     if (!task.getOptions ().contains (ESPArgOption.DRY_RUN))
     {
       final SmpService service = new SmpService (task);
-      for (final String userId : Arrays.asList (
-              "9930:de999111111",
-              "9930:de999111112",
-              "9930:de999111114",
-              "9930:de999111115",
-              "9930:de999111116",
-              "9930:de999111117",
-              "9930:de999111118",
-              "9930:de999111119",
-              "9930:de999268497"))
+      for (final String userId : Arrays.asList ("9930:de999111111",
+                                                "9930:de999111112",
+                                                "9930:de999111114",
+                                                "9930:de999111115",
+                                                "9930:de999111116",
+                                                "9930:de999111117",
+                                                "9930:de999111118",
+                                                "9930:de999111119",
+                                                "9930:de999268497"))
       {
         service.deleteParticipant (userId);
       }
@@ -156,17 +155,17 @@ public final class MainTest
 
   @Test
   @Ignore ("Really calls SMP")
-  public void mainExistingBusinessCardTask() throws Exception
+  public void mainExistingBusinessCardTask () throws Exception
   {
-    final FileTime time0 = _prepareInput();
+    final FileTime time0 = _prepareInput ();
 
     // Run valid
-    Main.main(TestFiles.SAMPLE_TASK_BC_PATH.toString());
+    Main.main (TestFiles.SAMPLE_TASK_BC_PATH.toString ());
 
-    final FileTime timeX = Files.getLastModifiedTime(TestFiles.SAMPLE_TASK_BC_PATH);
-    assertTrue("expected: " + time0 + " <= " + timeX, time0.compareTo(timeX) <= 0);
+    final FileTime timeX = Files.getLastModifiedTime (TestFiles.SAMPLE_TASK_BC_PATH);
+    assertTrue ("expected: " + time0 + " <= " + timeX, time0.compareTo (timeX) <= 0);
 
-    _cleanupSMP(SPReader.readTask(TestFiles.SAMPLE_TASK_BC_PATH));
+    _cleanupSMP (SPReader.readTask (TestFiles.SAMPLE_TASK_BC_PATH));
   }
 
   @Test

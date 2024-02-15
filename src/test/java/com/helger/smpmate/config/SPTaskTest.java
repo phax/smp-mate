@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.junit.Test;
 
@@ -42,7 +43,9 @@ public class SPTaskTest
   private static final String CSV_INPUT_PATH = "input.csv";
   private static final String CSV_FAIL_OUTPUT_PATH = "output.csv";
   private static final String SERVICE_GROUP_PATH = "ServiceGroup.xml";
-  private static final SPArgServiceMetadata SERVICE_METADATA = new SPArgServiceMetadata ("ServiceMetadata.xml", "anyDocId", "anyProcId");
+  private static final SPArgServiceMetadata SERVICE_METADATA = new SPArgServiceMetadata ("ServiceMetadata.xml",
+                                                                                         "anyDocId",
+                                                                                         "anyProcId");
   private static final List <SPArgServiceMetadata> SERVICE_META_LIST = Collections.singletonList (SERVICE_METADATA);
   private static final String URL = "url";
   private static final String NAME = "name";
@@ -58,7 +61,7 @@ public class SPTaskTest
   }
 
   @Nonnull
-  private static SPArgTask _newTask (final String csvOutputPath)
+  private static SPArgTask _newTask (@Nullable final String csvOutputPath)
   {
     return new SPArgTask (new SPArgPaths (CSV_INPUT_PATH, csvOutputPath, SERVICE_GROUP_PATH, SERVICE_META_LIST),
                           new SPArgSMP (URL, new SPArgAuthority (NAME, PASSWORD)),
