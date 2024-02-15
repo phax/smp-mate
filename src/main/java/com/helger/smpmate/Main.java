@@ -66,23 +66,17 @@ public final class Main
           try (final BufferedReader aReader = Files.newBufferedReader (aTask.getPaths ().getCsvInput (),
                                                                        StandardCharsets.UTF_8))
           {
-            String line;
-            while ((line = aReader.readLine ()) != null)
+            String sCsvLine;
+            while ((sCsvLine = aReader.readLine ()) != null)
             {
-              Tokenizer tokenizer = new Tokenizer (line.trim (), ";");
-              String [] tokens = tokenizer.tokens ();
-              String participantId = tokens.length >= 1 ? tokens[0] : null;
+              // Use ';' as field separator
+              final Tokenizer tokenizer = new Tokenizer (sCsvLine.trim (), ";");
+              final String [] tokens = tokenizer.tokens ();
 
-              if (tokens.length == 1)
-              {
-                aConfigurator.update (participantId);
-              }
-              else
-                if (tokens.length >= 2)
-                {
-                  Path path = SPPaths.toPath (aTaskPath.getParent (), tokens[1]);
-                  aConfigurator.update (participantId, path);
-                }
+              final String participantId = tokens.length >= 1 ? tokens[0] : null;
+              final Path bcPath = tokens.length >= 2 ? SPPaths.toPath (aTaskPath.getParent (), tokens[1]) : null;
+
+              aConfigurator.update (participantId, bcPath);
             }
           }
 

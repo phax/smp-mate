@@ -25,6 +25,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.smpmate.args.ESPArgOption;
 import com.helger.smpmate.config.SPPaths;
@@ -64,30 +65,32 @@ public final class UserConfigurator
   }
 
   /**
-   * Updates the associated user configuration based on a given {@link String}.
+   * Updates the associated user configuration.
+   *
+   * @param sParticipantId
+   *        Participant ID to be added to the SMP. May be <code>null</code>.
+   * @param bcPath
+   *        Path to the business card to be added. May be <code>null</code>.
    */
-  public void update (final String sParticipantId)
-  {
-    m_aStats.incTotalParticipants ();
-
-    if (m_bCallSMP)
-      _tryAddToSMP (sParticipantId);
-    else
-      MyLog.info ( () -> "DRY_RUN: no provisioning of participant " + sParticipantId + " to SMP");
-  }
-
-  public void update (final String sParticipantId, final Path bcPath)
+  public void update (@Nullable final String sParticipantId, @Nullable final Path bcPath)
   {
     m_aStats.incTotalParticipants ();
 
     if (m_bCallSMP)
     {
-      _tryAddToSMP (sParticipantId);
-      _tryAddBcToSMP (sParticipantId, bcPath);
+      if (_tryAddParticipantToSMP (sParticipantId))
+      {
+        // Add BC only if participant was added
+        if (bcPath != null)
+          _tryAddBcToSMP (sParticipantId, bcPath);
+      }
     }
     else
     {
-      MyLog.info ( () -> "DRY_RUN: no provisioning of participant " + sParticipantId + " to SMP");
+      MyLog.info ( () -> "DRY_RUN: no provisioning of participant " +
+                         sParticipantId +
+                         " to SMP" +
+                         (bcPath == null ? "" : " with BC path " + bcPath));
     }
   }
 
@@ -96,7 +99,7 @@ public final class UserConfigurator
     return aResults.stream ().allMatch (x -> x.equals (Integer.valueOf (HTTP_OK)));
   }
 
-  private boolean _tryAddToSMP (final String sParticipantID)
+  private boolean _tryAddParticipantToSMP (final String sParticipantID)
   {
     try
     {

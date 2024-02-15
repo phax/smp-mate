@@ -16,7 +16,10 @@
  */
 package com.helger.smpmate.business;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -193,18 +196,18 @@ public class SmpService
     return aHttpCon.getResponseCode ();
   }
 
-  public int putBusinessCard (@Nonnull String sParticipantID, @Nonnull byte [] content) throws IOException
+  public int putBusinessCard (@Nonnull final String sParticipantID, @Nonnull final byte [] content) throws IOException
   {
     _configureProxy ();
 
     MyLog.info ( () -> "[SMP] Trying to set business card to participant " + sParticipantID);
 
-    URL url = _url (m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
-    HttpURLConnection connection = _openConnection (url, "PUT");
+    final URL url = _url (m_sServerUrl, "businesscard", ISO_6523_ACTORID_UPIS + sParticipantID);
+    final HttpURLConnection connection = _openConnection (url, "PUT");
 
-    try (OutputStream stream = connection.getOutputStream ())
+    try (final OutputStream aOS = connection.getOutputStream ())
     {
-      stream.write (content, 0, content.length);
+      aOS.write (content, 0, content.length);
     }
 
     return connection.getResponseCode ();
